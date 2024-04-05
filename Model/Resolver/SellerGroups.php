@@ -38,14 +38,8 @@ use Magento\Store\Api\Data\StoreInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\ArgumentApplier\Filter;
 
-/**
- * Class SellerGroups
- *
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class SellerGroups extends AbstractSellerQuery implements ResolverInterface
 {
-
     /**
      * @var SellerGroupRepositoryInterface
      */
@@ -62,7 +56,7 @@ class SellerGroups extends AbstractSellerQuery implements ResolverInterface
     private $scopeConfig;
 
     /**
-     * Sellers constructor.
+     * SellerGroup constructor.
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param SellersFrontendRepositoryInterface $seller
      * @param SellerProductsRepositoryInterface $productSeller
@@ -82,11 +76,17 @@ class SellerGroups extends AbstractSellerQuery implements ResolverInterface
     ) {
         $this->sellerGroup = $sellerGroup;
         $this->scopeConfig = $scopeConfig;
-        parent::__construct($searchCriteriaBuilder, $seller, $productSeller, $productRepository, $sellerManagementRepository);
+        parent::__construct(
+            $searchCriteriaBuilder,
+            $seller,
+            $productSeller,
+            $productRepository,
+            $sellerManagementRepository
+        );
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -111,8 +111,8 @@ class SellerGroups extends AbstractSellerQuery implements ResolverInterface
         $totalPages = $args['pageSize'] ? ((int)ceil($searchResult->getTotalCount() / $args['pageSize'])) : 0;
         $resultItems = $searchResult->getItems();
         $items = [];
-        if($resultItems){
-            foreach($resultItems as $_item){
+        if ($resultItems) {
+            foreach ($resultItems as $_item) {
                 $items[] = $_item->__toArray();
             }
         }
@@ -130,7 +130,7 @@ class SellerGroups extends AbstractSellerQuery implements ResolverInterface
     /**
      * Format match filter to behave like fuzzy match
      *
-     * @param array $filter
+     * @param array $filters
      * @param StoreInterface $store
      * @return array
      * @throws InputException

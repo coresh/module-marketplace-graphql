@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Landofcoder
  *
@@ -30,7 +29,6 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Lof\MarketPlace\Api\SellerMessageRepositoryInterface;
 use Magento\Customer\Model\Session;
 
-
 class ReplyMessage implements ResolverInterface
 {
 
@@ -48,7 +46,6 @@ class ReplyMessage implements ResolverInterface
      * @param SellerMessageRepositoryInterface $sellerMessageRepository
      * @param Session $customerSession
      */
-
     public function __construct(
         SellerMessageRepositoryInterface $sellerMessageRepository,
         Session $customerSession
@@ -58,7 +55,7 @@ class ReplyMessage implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -70,7 +67,10 @@ class ReplyMessage implements ResolverInterface
         $input = $args['input'];
         $customerId = $this->customerSession->getCustomer()->getId();
 
-        return $this->sellerMessageRepository->sellerReplyMessage((int) $customerId, $input['message_id'], $input['content'] );
-
+        return $this->sellerMessageRepository->sellerReplyMessage(
+            (int) $customerId,
+            $input['message_id'],
+            $input['content']
+        );
     }
 }

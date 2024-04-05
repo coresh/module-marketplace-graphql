@@ -25,12 +25,14 @@ interface MessageSearchResultsInterface extends \Magento\Framework\Api\SearchRes
 {
     /**
      * Get seller message list.
+     *
      * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface[]
      */
     public function getItems();
 
     /**
      * Set seller message list.
+     *
      * @param \Lof\MarketplaceGraphQl\Api\Data\MessageInterface[] $items
      * @return $this
      */

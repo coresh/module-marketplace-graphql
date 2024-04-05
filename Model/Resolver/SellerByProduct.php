@@ -32,11 +32,7 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Catalog\Model\ProductRepository;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
-/**
- * Class SellerByProduct
- *
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
+
 class SellerByProduct extends AbstractSellerQuery implements ResolverInterface
 {
     /**
@@ -50,7 +46,7 @@ class SellerByProduct extends AbstractSellerQuery implements ResolverInterface
     private $productCollection;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function __construct(
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -60,17 +56,22 @@ class SellerByProduct extends AbstractSellerQuery implements ResolverInterface
         ProductRepository $product,
         Collection $collection,
         SellersRepositoryInterface $sellerManagementRepository
-    )
-    {
+    ) {
         $this->product = $product;
         $this->productCollection = $collection;
-        parent::__construct($searchCriteriaBuilder, $seller, $productSeller, $productRepository, $sellerManagementRepository);
+        parent::__construct(
+            $searchCriteriaBuilder,
+            $seller,
+            $productSeller,
+            $productRepository,
+            $sellerManagementRepository
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public function resolve( Field $field, $context, ResolveInfo $info, array $value = null, array $args = null )
+    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         if (!isset($args['product_sku']) || (isset($args['product_sku']) && !$args['product_sku'])) {
             throw new GraphQlInputException(
@@ -83,7 +84,12 @@ class SellerByProduct extends AbstractSellerQuery implements ResolverInterface
         $store = $context->getExtensionAttributes()->getStore();
         $storeId = $store->getId();
 
-        $sellerData = $this->_sellerRepository->getSellerByProductSku($args['product_sku'], $storeId, $isGetProducts, $isGetOtherInfo);
+        $sellerData = $this->_sellerRepository->getSellerByProductSku(
+            $args['product_sku'],
+            $storeId,
+            $isGetProducts,
+            $isGetOtherInfo
+        );
         $data = $sellerData ? $sellerData->__toArray() : [];
         $data["model"] = $sellerData;
 

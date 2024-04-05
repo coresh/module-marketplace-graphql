@@ -1,7 +1,22 @@
 <?php
 /**
- * Copyright ©  All rights reserved.
- * See COPYING.txt for license details.
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * https://landofcoder.com/terms
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category   Landofcoder
+ * @package    Lof_MarketplaceGraphQl
+ * @copyright  Copyright (c) 2021 Landofcoder (https://www.landofcoder.com/)
+ * @license    https://landofcoder.com/terms
  */
 declare(strict_types=1);
 
@@ -25,168 +40,194 @@ interface MessageInterface extends \Magento\Framework\Api\ExtensibleDataInterfac
 
     /**
      * Get message_id
+     *
      * @return int|null
      */
     public function getMessageId();
 
     /**
      * Set message_id
+     *
      * @param int $messageId
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setMessageId($messageId);
 
     /**
      * Get description
+     *
      * @return string|null
      */
     public function getDescription();
 
     /**
      * Set description
+     *
      * @param string $description
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setDescription($description);
 
     /**
      * Get subject
+     *
      * @return string|null
      */
     public function getSubject();
 
     /**
      * Set subject
+     *
      * @param string $subject
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setSubject($subject);
 
     /**
      * Get sender_email
+     *
      * @return string|null
      */
     public function getSenderEmail();
 
     /**
      * Set sender_email
+     *
      * @param string $senderEmail
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setSenderEmail($senderEmail);
 
     /**
      * Get sender_name
+     *
      * @return string|null
      */
     public function getSenderName();
 
     /**
      * Set sender_name
+     *
      * @param string $senderName
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setSenderName($senderName);
 
     /**
      * Get created_at
+     *
      * @return string|null
      */
     public function getCreatedAt();
 
     /**
      * Set created_at
+     *
      * @param string $createdAt
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setCreatedAt($createdAt);
 
     /**
      * Get status
+     *
      * @return int|null
      */
     public function getStatus();
 
     /**
      * Set status
+     *
      * @param int $status
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setStatus($status);
 
     /**
      * Get is_read
+     *
      * @return int|null
      */
     public function getIsRead();
 
     /**
      * Set is_read
+     *
      * @param int $isRead
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setIsRead($isRead);
 
     /**
      * Get sender_id
+     *
      * @return string|null
      */
     public function getSenderId();
 
     /**
      * Set sender_id
+     *
      * @param string $senderId
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setSenderId($senderId);
 
     /**
      * Get owner_id
+     *
      * @return int|null
      */
     public function getOwnerId();
 
     /**
      * Set owner_id
+     *
      * @param int $ownerId
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setOwnerId($ownerId);
 
     /**
      * Get receiver_id
+     *
      * @return int|null
      */
     public function getReceiverId();
 
     /**
      * Set receiver_id
+     *
      * @param int $receiverId
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setReceiverId($receiverId);
 
     /**
      * Get seller_send
+     *
      * @return int|null
      */
     public function getSellerSend();
 
     /**
      * Set seller_send
+     *
      * @param int $sellerSend
-     * @return \Lof\MarketplaceGraphQl\Message\Api\Data\MessageInterface
+     * @return \Lof\MarketplaceGraphQl\Api\Data\MessageInterface
      */
     public function setSellerSend($sellerSend);
 
     /**
      * Retrieve existing extension attributes object or create a new one.
+     *
      * @return \Lof\MarketplaceGraphQl\Api\Data\MessageExtensionInterface|\Magento\Framework\Api\ExtensionAttributesInterface|null
      */
     public function getExtensionAttributes();
 
     /**
      * Set an extension attributes object.
+     *
      * @param \Lof\MarketplaceGraphQl\Api\Data\MessageExtensionInterface $extensionAttributes
      * @return $this
      */
@@ -194,4 +235,3 @@ interface MessageInterface extends \Magento\Framework\Api\ExtensibleDataInterfac
         \Lof\MarketplaceGraphQl\Api\Data\MessageExtensionInterface $extensionAttributes
     );
 }
-

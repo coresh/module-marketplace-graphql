@@ -37,7 +37,6 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 /**
  * Class ProductSellers
  *
- * @package Lof\MarketplaceGraphQl\Model\Resolver
  */
 class ProductBySellerUrl extends AbstractSellerQuery implements ResolverInterface
 {
@@ -57,7 +56,13 @@ class ProductBySellerUrl extends AbstractSellerQuery implements ResolverInterfac
     protected $sellerFactory;
 
     /**
-     * @inheritdoc
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param SellersFrontendRepositoryInterface $seller
+     * @param SellerProductsRepositoryInterface $productSeller
+     * @param ProductRepositoryInterface $productRepository
+     * @param ProductQueryInterface $searchQuery
+     * @param SellerFactory $sellerFactory
+     * @param SellersRepositoryInterface $sellerManagementRepository
      */
     public function __construct(
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -70,11 +75,17 @@ class ProductBySellerUrl extends AbstractSellerQuery implements ResolverInterfac
     ) {
         $this->searchQuery = $searchQuery;
         $this->sellerFactory = $sellerFactory;
-        parent::__construct($searchCriteriaBuilder, $seller, $productSeller, $productRepository, $sellerManagementRepository);
+        parent::__construct(
+            $searchCriteriaBuilder,
+            $seller,
+            $productSeller,
+            $productRepository,
+            $sellerManagementRepository
+        );
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -82,8 +93,7 @@ class ProductBySellerUrl extends AbstractSellerQuery implements ResolverInterfac
         ResolveInfo $info,
         array $value = null,
         array $args = null
-    )
-    {
+    ) {
         if ($args['currentPage'] < 1) {
             throw new GraphQlInputException(__('currentPage value must be greater than 0.'));
         }
@@ -127,7 +137,7 @@ class ProductBySellerUrl extends AbstractSellerQuery implements ResolverInterfac
     }
 
     /**
-     * get seller by sellerUrl
+     * Get seller by sellerUrl
      *
      * @param string $sellerUrl
      * @return \Lof\MarketPlace\Model\Seller

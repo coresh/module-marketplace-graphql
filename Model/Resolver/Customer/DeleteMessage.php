@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Landofcoder
  *
@@ -48,7 +47,7 @@ class DeleteMessage implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,

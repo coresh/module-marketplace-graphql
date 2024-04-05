@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace Lof\MarketplaceGraphQl\Model\Resolver\DataProvider;
 
+use Lof\MarketPlace\Api\Data\RegisterSellerInterface;
+use Lof\MarketPlace\Api\Data\SellerInterface;
 use Lof\MarketPlace\Api\SellersRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Exception\InputException;
@@ -34,7 +36,6 @@ use Magento\Framework\Exception\State\InputMismatchException;
  */
 class CreateSeller
 {
-
     /**
      * @var SellersRepositoryInterface
      */
@@ -51,8 +52,10 @@ class CreateSeller
     }
 
     /**
-     * @param $data
-     * @param $customerId
+     * Create seller.
+     *
+     * @param SellerInterface $data
+     * @param int $customerId
      * @return mixed
      * @throws LocalizedException
      */
@@ -62,15 +65,17 @@ class CreateSeller
     }
 
     /**
+     * Register seller.
+     *
      * @param CustomerInterface $customer
-     * @param $data
-     * @param $password
-     * @return \Lof\MarketPlace\Api\Data\SellerInterface|array|mixed|string|null
+     * @param RegisterSellerInterface $data
+     * @param string $password
+     * @return SellerInterface|array|mixed|string|null
      * @throws InputException
      * @throws LocalizedException
      * @throws InputMismatchException
      */
-    public function registerSeller(CustomerInterface $customer, $data, $password)
+    public function registerSeller(CustomerInterface $customer, RegisterSellerInterface $data, string $password)
     {
         return $this->sellerRepository->registerNewSeller($customer, $data, $password);
     }

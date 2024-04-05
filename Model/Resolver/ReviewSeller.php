@@ -25,7 +25,6 @@ namespace Lof\MarketplaceGraphQl\Model\Resolver;
 
 use Lof\MarketPlace\Api\Data\SellerInterface;
 use Lof\MarketPlace\Api\SellersFrontendRepositoryInterface;
-use Lof\MarketPlace\Api\SellersRepositoryInterface;
 use Lof\MarketPlace\Helper\Data;
 use Lof\MarketPlace\Model\RatingFactory;
 use Lof\MarketPlace\Model\Sender;
@@ -34,10 +33,6 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
-/**
- * Class ReviewSeller
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class ReviewSeller implements ResolverInterface
 {
 
@@ -87,7 +82,7 @@ class ReviewSeller implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -99,7 +94,8 @@ class ReviewSeller implements ResolverInterface
         if (!($args['input']) || !isset($args['input'])) {
             throw new GraphQlInputException(__('"input" value should be specified'));
         }
-        if (!isset($args['input']['seller_url']) || (isset($args['input']['seller_url']) && !$args['input']['seller_url'])) {
+        if (!isset($args['input']['seller_url']) ||
+            (isset($args['input']['seller_url']) && !$args['input']['seller_url'])) {
             throw new GraphQlInputException(__('seller_url is required.'));
         }
         $args = $args['input'];
@@ -115,7 +111,7 @@ class ReviewSeller implements ResolverInterface
         $args['seller_name'] = $seller->getName();
 
         $args['rating'] = ($args['rate1']+$args['rate2']+$args['rate3'])/3;
-        if($this->helper->getConfig('general_settings/rating_approval')) {
+        if ($this->helper->getConfig('general_settings/rating_approval')) {
             $args['status'] = 'pending';
         } else {
             $args['status'] = 'accept';
@@ -126,7 +122,7 @@ class ReviewSeller implements ResolverInterface
         $args['namestore'] = $this->helper->getStoreName();
         $args['urllogin'] = $this->helper->getStoreUrl('customer/account/login');
 
-        if($this->helper->getConfig('email_settings/enable_send_email')) {
+        if ($this->helper->getConfig('email_settings/enable_send_email')) {
             $this->sender->newRating($args);
         }
         return [

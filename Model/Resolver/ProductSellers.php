@@ -33,11 +33,6 @@ use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as 
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
-/**
- * Class ProductSellers
- *
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class ProductSellers extends AbstractSellerQuery implements ResolverInterface
 {
     /**
@@ -46,7 +41,7 @@ class ProductSellers extends AbstractSellerQuery implements ResolverInterface
     private $searchQuery;
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function __construct(
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -57,11 +52,17 @@ class ProductSellers extends AbstractSellerQuery implements ResolverInterface
         SellersRepositoryInterface $sellerManagementRepository
     ) {
         $this->searchQuery = $searchQuery;
-        parent::__construct($searchCriteriaBuilder, $seller, $productSeller, $productRepository, $sellerManagementRepository);
+        parent::__construct(
+            $searchCriteriaBuilder,
+            $seller,
+            $productSeller,
+            $productRepository,
+            $sellerManagementRepository
+        );
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -93,7 +94,7 @@ class ProductSellers extends AbstractSellerQuery implements ResolverInterface
             );
         }
 
-        $data = [
+        return [
             'total_count' => $searchResult->getTotalCount(),
             'items' => $searchResult->getProductsSearchResult(),
             'page_info' => [
@@ -104,7 +105,5 @@ class ProductSellers extends AbstractSellerQuery implements ResolverInterface
             'search_result' => $searchResult,
             'layer_type' => isset($args['search']) ? Resolver::CATALOG_LAYER_SEARCH : Resolver::CATALOG_LAYER_CATEGORY,
         ];
-
-        return $data;
     }
 }

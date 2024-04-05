@@ -37,6 +37,9 @@ class CustomerSendMessageSeller implements ResolverInterface
      */
     private $customerMessageRepository;
 
+    /**
+     * @param CustomerMessageRepositoryInterface $customerMessageRepository
+     */
     public function __construct(
         CustomerMessageRepositoryInterface $customerMessageRepository
     ) {
@@ -44,7 +47,7 @@ class CustomerSendMessageSeller implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,

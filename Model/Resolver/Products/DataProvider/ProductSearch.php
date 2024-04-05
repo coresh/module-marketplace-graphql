@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace Lof\MarketplaceGraphQl\Model\Resolver\Products\DataProvider;
 
-use Laminas\Db\Sql\Ddl\Column\Integer;
 use Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
@@ -121,12 +120,14 @@ class ProductSearch
         } else {
             $collection->addFieldToFilter('seller_id', ['neq' => 0]);
         }
-        $collection->addAttributeToFilter('approval',
-                        ['in' => [
-                            SellerProduct::STATUS_NOT_SUBMITED,
+        $collection->addAttributeToFilter(
+            'approval',
+            ['in' => [
+                            SellerProduct::STATUS_NOT_SUBMITTED,
                             SellerProduct::STATUS_APPROVED
                         ]
-                    ]);
+            ]
+        );
 
         //Create a copy of search criteria without filters to preserve the results from search
         $searchCriteriaForCollection = $this->searchCriteriaBuilder->build($searchCriteria);
@@ -162,8 +163,7 @@ class ProductSearch
         SearchResultInterface $searchResult,
         Collection $collection,
         array $orders
-    ): SearchResultApplierInterface
-    {
+    ): SearchResultApplierInterface {
         return $this->searchResultApplierFactory->create(
             [
                 'collection' => $collection,

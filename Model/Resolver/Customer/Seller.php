@@ -25,15 +25,10 @@ namespace Lof\MarketplaceGraphQl\Model\Resolver\Customer;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
 use Lof\MarketplaceGraphQl\Model\Resolver\AbstractSellerQuery;
+use Magento\GraphQl\Model\Query\ContextInterface;
 
-/**
- * Class Seller
- *
- * @package Lof\MarketplaceGraphQl\Model\Resolver\Custome
- */
 class Seller extends AbstractSellerQuery implements ResolverInterface
 {
     /**

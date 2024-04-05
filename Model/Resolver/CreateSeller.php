@@ -35,13 +35,8 @@ use Magento\Catalog\Model\Product\Url;
 use Lof\MarketplaceGraphQl\Model\Resolver\DataProvider\CreateSeller as DataProviderCreateSeller;
 use Lof\MarketPlace\Api\Data\RegisterSellerInterfaceFactory;
 
-/**
- * Class CreateSeller
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class CreateSeller implements ResolverInterface
 {
-
     /**
      * @var GetCustomer
      */
@@ -106,7 +101,7 @@ class CreateSeller implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,

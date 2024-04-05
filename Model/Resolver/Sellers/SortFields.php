@@ -31,7 +31,7 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 class SortFields implements ResolverInterface
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
@@ -48,12 +48,10 @@ class SortFields implements ResolverInterface
             ['label' => "region", 'value' => "region"],
             ['label' => "status", 'value' => "status"]
         ];
-        
-        $data = [
+
+        return [
             'default' => "position",
             'options' => $sortFieldsOptions,
         ];
-
-        return $data;
     }
 }

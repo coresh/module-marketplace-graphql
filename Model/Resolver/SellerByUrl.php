@@ -26,11 +26,6 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 
-/**
- * Class SellerByUrl
- *
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class SellerByUrl extends AbstractSellerQuery implements ResolverInterface
 {
     /**

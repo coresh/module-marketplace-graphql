@@ -28,11 +28,6 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Catalog\Model\Product;
 
-/**
- * Class Seller
- *
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class Seller extends AbstractSellerQuery implements ResolverInterface
 {
     /**

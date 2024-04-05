@@ -21,24 +21,22 @@
 
 namespace Lof\MarketplaceGraphQl\Model\Resolver\SellerByProduct;
 
-
 use Magento\Framework\GraphQl\Query\Resolver\IdentityInterface;
 
 class Identity implements IdentityInterface
 {
-
+    /**
+     * @var string
+     */
     private $cacheTag = \Magento\Framework\App\Config::CACHE_TAG;
 
     /**
-     * @param array $resolvedData
-     * @return string[]
+     * @inheritDoc
      */
     public function getIdentities(array $resolvedData): array
     {
-        $ids =  empty($resolvedData['product_sku']) ?
-                        [] : [$this->cacheTag, sprintf('%s_%s', $this->cacheTag, $resolvedData['product_sku'])];
-        
-                    return $ids;
+        return empty($resolvedData['product_sku'])
+            ? []
+            : [$this->cacheTag, sprintf('%s_%s', $this->cacheTag, $resolvedData['product_sku'])];
     }
 }
-
