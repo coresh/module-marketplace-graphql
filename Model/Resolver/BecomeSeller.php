@@ -34,11 +34,6 @@ use Magento\GraphQl\Model\Query\ContextInterface;
 use Magento\CustomerGraphQl\Model\Customer\GetCustomer;
 use Magento\Catalog\Model\Product\Url;
 
-
-/**
- * Class BecomeSeller
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class BecomeSeller implements ResolverInterface
 {
 
@@ -82,7 +77,7 @@ class BecomeSeller implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -123,6 +118,4 @@ class BecomeSeller implements ResolverInterface
             "message" => $message
         ];
     }
-
-
 }

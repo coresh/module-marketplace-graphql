@@ -14,7 +14,7 @@
  * version in the future.
  *
  * @category   Landofcoder
- * @package    Lof_MarketPlace
+ * @package    Lof_MarketplaceGraphQl
  * @copyright  Copyright (c) 2021 Landofcoder (https://www.landofcoder.com/)
  * @license    https://landofcoder.com/terms
  */
@@ -30,8 +30,8 @@ use Lof\MarketplaceGraphQl\Api\Data\MessageInterface;
 class Message extends \Magento\Framework\Api\AbstractExtensibleObject implements MessageInterface
 {
      /**
-     * @inheritDoc
-     */
+      * @inheritDoc
+      */
     public function getMessageId()
     {
         return $this->_get(self::MESSAGE_ID);
@@ -222,7 +222,7 @@ class Message extends \Magento\Framework\Api\AbstractExtensibleObject implements
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getExtensionAttributes()
     {
@@ -230,7 +230,7 @@ class Message extends \Magento\Framework\Api\AbstractExtensibleObject implements
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function setExtensionAttributes(
         \Lof\MarketplaceGraphQl\Api\Data\MessageExtensionInterface $extensionAttributes

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Landofcoder
  *
@@ -48,7 +47,7 @@ class ReplyMessage implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -67,6 +66,10 @@ class ReplyMessage implements ResolverInterface
         if (empty($input['content']) || empty($input['message_id'])) {
             throw new GraphQlInputException(__('"content" and "message_id" value should be specified'));
         }
-        return $this->customerMessageRepository->replyMessage($context->getUserId(), (int)$input['message_id'], $input['content']);
+        return $this->customerMessageRepository->replyMessage(
+            $context->getUserId(),
+            (int)$input['message_id'],
+            $input['content']
+        );
     }
 }

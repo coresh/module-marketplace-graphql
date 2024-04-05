@@ -39,6 +39,10 @@ interface SellerQueryInterface
      * @param ContextInterface $context
      * @return mixed
      */
-    public function getListSellers(SearchCriteriaInterface $criteria, array $args, ResolveInfo $info, ContextInterface $context);
-
+    public function getListSellers(
+        SearchCriteriaInterface $criteria,
+        array $args,
+        ResolveInfo $info,
+        ContextInterface $context
+    );
 }

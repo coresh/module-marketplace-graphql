@@ -39,5 +39,4 @@ interface ProductQueryInterface
      * @return SearchResult
      */
     public function getResult(array $args, ResolveInfo $info, ContextInterface $context): SearchResult;
-
 }

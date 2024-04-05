@@ -33,11 +33,6 @@ use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as 
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 
-/**
- * Class SellerRates
- *
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class SellerRates extends AbstractSellerQuery implements ResolverInterface
 {
     /**
@@ -56,7 +51,13 @@ class SellerRates extends AbstractSellerQuery implements ResolverInterface
     protected $sellerRatingRepository;
 
     /**
-     * @inheritdoc
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param SellersFrontendRepositoryInterface $seller
+     * @param SellerProductsRepositoryInterface $productSeller
+     * @param ProductRepositoryInterface $productRepository
+     * @param ProductQueryInterface $searchQuery
+     * @param SellersRepositoryInterface $sellerManagementRepository
+     * @param SellerRatingsRepositoryInterface $sellerRatingRepository
      */
     public function __construct(
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -69,11 +70,17 @@ class SellerRates extends AbstractSellerQuery implements ResolverInterface
     ) {
         $this->searchQuery = $searchQuery;
         $this->sellerRatingRepository = $sellerRatingRepository;
-        parent::__construct($searchCriteriaBuilder, $seller, $productSeller, $productRepository, $sellerManagementRepository);
+        parent::__construct(
+            $searchCriteriaBuilder,
+            $seller,
+            $productSeller,
+            $productRepository,
+            $sellerManagementRepository
+        );
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -81,8 +88,7 @@ class SellerRates extends AbstractSellerQuery implements ResolverInterface
         ResolveInfo $info,
         array $value = null,
         array $args = null
-    )
-    {
+    ) {
         if ($args['currentPage'] < 1) {
             throw new GraphQlInputException(__('currentPage value must be greater than 0.'));
         }
@@ -95,9 +101,9 @@ class SellerRates extends AbstractSellerQuery implements ResolverInterface
             );
         }
 
-        $searchCriteria = $this->searchCriteriaBuilder->build( 'lof_marketplace_seller_ratings', $args );
-        $searchCriteria->setCurrentPage( $args['currentPage'] );
-        $searchCriteria->setPageSize( $args['pageSize'] );
+        $searchCriteria = $this->searchCriteriaBuilder->build('lof_marketplace_seller_ratings', $args);
+        $searchCriteria->setCurrentPage($args['currentPage']);
+        $searchCriteria->setPageSize($args['pageSize']);
 
         $searchResult = $this->sellerRatingRepository->getListByUrl($args['seller_url'], $searchCriteria);
         $totalPages = $args['pageSize'] ? ((int)ceil($searchResult->getTotalCount() / $args['pageSize'])) : 0;

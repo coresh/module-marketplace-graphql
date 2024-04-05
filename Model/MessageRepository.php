@@ -1,8 +1,22 @@
 <?php
-
 /**
- * Copyright © Landofcoder All rights reserved.
- * See COPYING.txt for license details.
+ * Landofcoder
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Landofcoder.com license that is
+ * available through the world-wide-web at this URL:
+ * https://landofcoder.com/terms
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category   Landofcoder
+ * @package    Lof_MarketplaceGraphQl
+ * @copyright  Copyright (c) 2021 Landofcoder (https://www.landofcoder.com/)
+ * @license    https://landofcoder.com/terms
  */
 
 declare(strict_types=1);
@@ -19,15 +33,35 @@ use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\ExtensibleDataObjectConverter;
 use Magento\Framework\Api\ExtensionAttribute\JoinProcessorInterface;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Reflection\DataObjectProcessor;
 use Magento\Store\Model\StoreManagerInterface;
 
-/**
- * Class MessageRepository
- */
 class MessageRepository implements MessageRepositoryInterface
 {
+    /**
+     * @var MessageDetailCollectionFactory
+     */
+    protected $messageDetailCollectionFactory;
+
+    /**
+     * @var MessageCollectionFactory
+     */
+    protected $messageCollectionFactory;
+
+    /**
+     * @var MessageSearchResultsInterfaceFactory
+     */
+    protected $searchResultsFactory;
+
+    /**
+     * @var DataObjectProcessor
+     */
+    protected $dataObjectProcessor;
+
+    /**
+     * @var StoreManagerInterface
+     */
+    protected $storeManager;
 
     /**
      * @var DataObjectHelper
@@ -50,7 +84,28 @@ class MessageRepository implements MessageRepositoryInterface
     protected $helper;
 
     /**
-     * SellerMessageRepository constructor.
+     * @var CollectionProcessorInterface
+     */
+    protected $collectionProcessor;
+
+    /**
+     * @var JoinProcessorInterface
+     */
+    protected $extensionAttributesJoinProcessor;
+
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
+    protected $extensibleDataObjectConverter;
+
+    /**
+     * @var MessageInterfaceFactory
+     */
+    protected $dataMessageFactory;
+
+    /**
+     * MessageRepository constructor.
+     *
      * @param MessageCollectionFactory $messageCollectionFactory
      * @param MessageDetailCollectionFactory $messageDetailCollectionFactory
      * @param MessageInterfaceFactory $dataMessageFactory
@@ -58,12 +113,12 @@ class MessageRepository implements MessageRepositoryInterface
      * @param DataObjectHelper $dataObjectHelper
      * @param DataObjectProcessor $dataObjectProcessor
      * @param StoreManagerInterface $storeManager
-     * @param CollectionProcessorInterface $collectionProcessor
-     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
-     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
      * @param \Lof\MarketPlace\Model\SellerFactory $sellerFactory
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Lof\MarketPlace\Helper\Data $helper
+     * @param CollectionProcessorInterface $collectionProcessor
+     * @param JoinProcessorInterface $extensionAttributesJoinProcessor
+     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
      */
     public function __construct(
         MessageCollectionFactory $messageCollectionFactory,
@@ -93,15 +148,15 @@ class MessageRepository implements MessageRepositoryInterface
         $this->extensionAttributesJoinProcessor = $extensionAttributesJoinProcessor;
         $this->extensibleDataObjectConverter = $extensibleDataObjectConverter;
         $this->dataMessageFactory = $dataMessageFactory;
-;
+        ;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getListSellerMessages(
         int $sellerId,
-        \Magento\Framework\Api\SearchCriteriaInterface $criteria
+        \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
     ) {
         $collection = $this->messageCollectionFactory->create();
 
@@ -110,12 +165,12 @@ class MessageRepository implements MessageRepositoryInterface
             \Lof\MarketplaceGraphQl\Api\Data\MessageInterface::class
         );
 
-        $this->collectionProcessor->process($criteria, $collection);
+        $this->collectionProcessor->process($searchCriteria, $collection);
 
         $collection->addFieldToFilter("owner_id", $sellerId);
 
         $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($criteria);
+        $searchResults->setSearchCriteria($searchCriteria);
 
         $items = [];
         foreach ($collection as $key => $model) {
@@ -128,7 +183,7 @@ class MessageRepository implements MessageRepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getListMessages(
         int $customerId,
@@ -159,7 +214,7 @@ class MessageRepository implements MessageRepositoryInterface
     }
 
     /**
-     * convert array data to object
+     * Convert array data to object
      *
      * @param array|mixed $data
      * @return MessageInterface

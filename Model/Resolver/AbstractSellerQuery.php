@@ -89,6 +89,8 @@ abstract class AbstractSellerQuery
     }
 
     /**
+     * Validate arguments.
+     *
      * @param array $args
      *
      * @throws GraphQlInputException

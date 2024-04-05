@@ -51,7 +51,7 @@ class Filter implements ProductQueryInterface
     private $productDataProvider;
 
     /**
-     * FieldSelection
+     * @var FieldSelection
      */
     private $fieldSelection;
 
@@ -87,15 +87,9 @@ class Filter implements ProductQueryInterface
     }
 
     /**
-     * Filter catalog product data based off given search criteria
-     *
-     * @param array $args
-     * @param ResolveInfo $info
-     * @param ContextInterface $context
-     * @return SearchResult
+     * @inheritDoc
      */
-    public function getResult
-    (
+    public function getResult(
         array $args,
         ResolveInfo $info,
         ContextInterface $context

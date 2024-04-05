@@ -27,10 +27,6 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\ConfigInterface;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesInterface;
 
-/**
- * Class FilterArgumentSeller
- * @package Lof\MarketplaceGraphQl\Model\Resolver
- */
 class FilterArgumentSeller implements FieldEntityAttributesInterface
 {
     /** @var ConfigInterface */
@@ -46,7 +42,7 @@ class FilterArgumentSeller implements FieldEntityAttributesInterface
     }
 
     /**
-     * @return array
+     * @inheritDoc
      */
     public function getEntityAttributes(): array
     {

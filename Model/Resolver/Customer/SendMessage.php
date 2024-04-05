@@ -29,8 +29,6 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\GraphQl\Exception\GraphQlAuthorizationException;
-use Lof\MarketPlace\Model\ResourceModel\Seller\CollectionFactory;
-
 
 class SendMessage implements ResolverInterface
 {
@@ -49,7 +47,7 @@ class SendMessage implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -66,9 +64,9 @@ class SendMessage implements ResolverInterface
         }
 
         $input = $args['input'];
-        $sellerUrl = isset($input['seller_url']) ? $input['seller_url'] : "";
-        $content = isset($input['content']) ? $input['content'] : "";
-        $subject = isset($input['subject']) ? $input['subject'] : "";
+        $sellerUrl = $input['seller_url'] ?? "";
+        $content = $input['content'] ?? "";
+        $subject = $input['subject'] ?? "";
 
         if (empty($sellerUrl) || empty($content)) {
             throw new GraphQlInputException(__('"seller_url" and "content" value should be specified'));

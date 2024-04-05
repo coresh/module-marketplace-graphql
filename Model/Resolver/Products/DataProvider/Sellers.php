@@ -30,7 +30,6 @@ use Magento\CatalogGraphQl\DataProvider\Product\SearchCriteriaBuilder;
 use Magento\CatalogGraphQl\Model\Resolver\Products\SearchResultFactory;
 use Magento\Framework\Api\Search\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
-use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
@@ -41,6 +40,7 @@ use Lof\MarketplaceGraphQl\Model\Resolver\Products\Query\SellerQueryInterface;
 use Lof\MarketplaceGraphQl\Model\Resolver\Products\Query\FieldSelection;
 use Magento\Store\Model\StoreManagerInterface;
 use Lof\MarketPlace\Api\SellersFrontendRepositoryInterface;
+
 /**
  * Full text search for catalog using given search criteria.
  */
@@ -75,22 +75,27 @@ class Sellers implements SellerQueryInterface
      * @var SearchCriteriaBuilder
      */
     private $searchCriteriaBuilder;
+
     /**
      * @var CollectionFactory
      */
     private $_collection;
+
     /**
      * @var CollectionProcessorInterface
      */
     private $collectionProcessor;
+
     /**
      * @var SellersSearchResultsInterfaceFactory
      */
     private $searchResultsFactory;
+
     /**
      * @var StoreManagerInterface
      */
     private $_storeManager;
+
     /**
      * @var SellersFrontendRepositoryInterface
      */
@@ -136,15 +141,11 @@ class Sellers implements SellerQueryInterface
     }
 
     /**
-     * @param SearchCriteriaInterface $criteria
-     * @param array $args
-     * @param ResolveInfo $info
-     * @param ContextInterface $context
-     * @return SellerInterface|SellersSearchResultsInterface
+     * @inheritDoc
+     *
      * @throws NoSuchEntityException|LocalizedException
      */
-    public function getListSellers
-    (
+    public function getListSellers(
         SearchCriteriaInterface $criteria,
         array $args,
         ResolveInfo $info,
@@ -160,12 +161,12 @@ class Sellers implements SellerQueryInterface
                 $data["banner_pic"] = (!isset($data["banner_pic"]) || (isset($data["banner_pic"]) && empty($data["banner_pic"]))) ? $data['image'] : $data["banner_pic"];
                 $data["logo_pic"] = (!isset($data["logo_pic"]) || (isset($data["logo_pic"]) && empty($data["logo_pic"]))) ? $data['thumbnail'] : $data["logo_pic"];
                 $data["image"] = $this->_storeManager->getStore()->getBaseUrl(
-                        \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
-                    ) . $data["image"];
+                    \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
+                ) . $data["image"];
 
                 $data["thumbnail"] = $this->_storeManager->getStore()->getBaseUrl(
-                        \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
-                    ) . $data["thumbnail"];
+                    \Magento\Framework\UrlInterface::URL_TYPE_MEDIA
+                ) . $data["thumbnail"];
             }
             $args['seller_id'] = $val->getData('seller_id');
             $sellerRates = $this->sellerFrontendRepository->getSellersRating($data['seller_id'])->__toArray();
@@ -209,7 +210,7 @@ class Sellers implements SellerQueryInterface
         //Address limitations of sort and pagination on search API apply original pagination from GQL query
         $searchCriteria->setPageSize($realPageSize);
         $searchCriteria->setCurrentPage($realCurrentPage);
-        if(isset($args['seller_id'])) {
+        if (isset($args['seller_id'])) {
             $searchResults = $this->productsProvider->getList(
                 $searchCriteria,
                 $itemsResults,

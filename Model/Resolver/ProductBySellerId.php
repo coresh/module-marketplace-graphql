@@ -36,7 +36,6 @@ use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 /**
  * Class ProductSellers
  *
- * @package Lof\MarketplaceGraphQl\Model\Resolver
  */
 class ProductBySellerId extends AbstractSellerQuery implements ResolverInterface
 {
@@ -46,7 +45,12 @@ class ProductBySellerId extends AbstractSellerQuery implements ResolverInterface
     private $searchQuery;
 
     /**
-     * @inheritdoc
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param SellersFrontendRepositoryInterface $seller
+     * @param SellerProductsRepositoryInterface $productSeller
+     * @param ProductRepositoryInterface $productRepository
+     * @param ProductQueryInterface $searchQuery
+     * @param SellersRepositoryInterface $sellerManagementRepository
      */
     public function __construct(
         SearchCriteriaBuilder $searchCriteriaBuilder,
@@ -57,11 +61,17 @@ class ProductBySellerId extends AbstractSellerQuery implements ResolverInterface
         SellersRepositoryInterface $sellerManagementRepository
     ) {
         $this->searchQuery = $searchQuery;
-        parent::__construct($searchCriteriaBuilder, $seller, $productSeller, $productRepository, $sellerManagementRepository);
+        parent::__construct(
+            $searchCriteriaBuilder,
+            $seller,
+            $productSeller,
+            $productRepository,
+            $sellerManagementRepository
+        );
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,

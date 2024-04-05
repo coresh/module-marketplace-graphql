@@ -56,7 +56,7 @@ class Messages implements ResolverInterface
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
     public function resolve(
         Field $field,
@@ -79,9 +79,9 @@ class Messages implements ResolverInterface
 
         $customerId = $context->getUserId();
 
-        $searchCriteria = $this->searchCriteriaBuilder->build( 'lof_seller_messages', $args );
-        $searchCriteria->setCurrentPage( $args['currentPage'] );
-        $searchCriteria->setPageSize( $args['pageSize'] );
+        $searchCriteria = $this->searchCriteriaBuilder->build('lof_seller_messages', $args);
+        $searchCriteria->setCurrentPage($args['currentPage']);
+        $searchCriteria->setPageSize($args['pageSize']);
         $searchResult = $this->repository->getListMessages($customerId, $searchCriteria);
 
         $totalPages = $args['pageSize'] ? ((int)ceil($searchResult->getTotalCount() / $args['pageSize'])) : 0;
